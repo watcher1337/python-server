@@ -5,7 +5,7 @@ description = "HTTP file server with upload support and authentication"
 readme = "README.md"
 requires-python = ">=3.8"
 authors = [
-    {name = "your-username", email = "your-email@example.com"}
+    {name = "watcher1337", email = "your-email@example.com"}
 ]
 license = {text = "MIT"}
 keywords = ["http-server", "file-upload", "file-server", "pentest"]
@@ -35,10 +35,9 @@ python-server = "python_server:main"
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools.py-modules]
-# This tells setuptools to include python-server.py as a module
-auto = true
+# ✅ FIXED: Use array, not object with "auto"
+[tool.setuptools]
+py-modules = ["python_server"]  # ← This is the correct format
 
-# Optional: For PyInstaller if you want binaries
-[tool.pyinstaller]
-hidden_imports = ["netifaces"]
+# Optional: If you have packages directory
+# packages = ["python_server"]
