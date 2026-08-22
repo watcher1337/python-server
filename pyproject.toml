@@ -25,6 +25,7 @@ classifiers = [
 ]
 
 dependencies = [
+    "legacy-cgi>=2.6.4",
     "netifaces>=0.11.0",
 ]
 
@@ -35,9 +36,5 @@ python-server = "python_server:main"
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
-# ✅ FIXED: Use array, not object with "auto"
 [tool.setuptools]
-py-modules = ["python_server"]  # ← This is the correct format
-
-# Optional: If you have packages directory
-# packages = ["python_server"]
+py-modules = ["python_server"]
