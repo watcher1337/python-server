@@ -7,26 +7,6 @@
 
 **HTTP file server with upload support and authentication - perfect for file transfers during penetration testing and red team engagements.**
 
----
-
-## 📋 Table of Contents
-
-- [Features](#-features)
-- [Quick Install](#-quick-install)
-- [Usage](#-usage)
-
----
-
-## ✨ Features
-
-- 📤 File upload – POST and PUT methods for file transfers
-- 🔒 Basic authentication – Password protect your server
-- 📂 Directory listing – Browse files via web interface
-- 🖥️ Cross-platform – Windows, Linux, macOS (x64 & ARM64)
-- 🔄 Auto-rename – Automatic unique filename on conflict
-- 🌐 IP detection – Shows all available network interfaces
-- 🛡️ Security – Path traversal protection, file size limits
-
 
 ---
 
