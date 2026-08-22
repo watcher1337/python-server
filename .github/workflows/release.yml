@@ -13,7 +13,7 @@ on:
 
 permissions:
   contents: write
-  id-token: write  # Required for PyPI OIDC
+  id-token: write
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
             binary: dist/python-server
 
           # =========================
-          # Linux ARM64 - NATIVE ARM RUNNER!
+          # Linux ARM64
           # =========================
           - os: ubuntu-24.04-arm
             arch: arm64
@@ -49,7 +49,7 @@ jobs:
             binary: dist/python-server
 
           # =========================
-          # macOS ARM64 - NATIVE ARM RUNNER!
+          # macOS ARM64
           # =========================
           - os: macos-15
             arch: arm64
@@ -72,7 +72,6 @@ jobs:
           echo "OS: $(uname -s 2>/dev/null || echo Windows)"
           echo "Architecture: $(uname -m 2>/dev/null || echo Windows)"
           python --version
-          python -c "import platform; print('Python architecture:', platform.machine())"
 
       - name: Install dependencies
         shell: bash
@@ -83,12 +82,10 @@ jobs:
       - name: Build executable
         shell: bash
         run: |
-          # Check if file is python-server.py or python_server.py
-          if [ -f "python-server.py" ]; then
-            python -m PyInstaller --onefile --clean --name python-server python-server.py
-          else
-            python -m PyInstaller --onefile --clean --name python-server python_server.py
-          fi
+          python -m PyInstaller --onefile --clean \
+            --hidden-import=netifaces \
+            --name python-server \
+            python_server.py
 
       - name: Rename artifact
         shell: bash
@@ -125,11 +122,6 @@ jobs:
         run: |
           echo "Release files:"
           ls -lah artifacts/
-          echo ""
-          echo "File details:"
-          if command -v file &> /dev/null; then
-            file artifacts/* 2>/dev/null || echo "file command not available"
-          fi
 
       - name: Set release tag
         id: release_tag
@@ -152,7 +144,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # ============================================================
-  # PyPI Publishing Job
+  # PyPI Publishing Job - FIXED
   # ============================================================
   pypi-publish:
     name: Publish to PyPI
@@ -177,9 +169,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install --upgrade build
+          python -m pip install twine
 
       - name: Build package for PyPI
         run: python -m build
+
+      - name: Check package
+        run: twine check dist/*
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
