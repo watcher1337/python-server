@@ -11,13 +11,20 @@ import os
 import html
 import argparse
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-import cgi
 import sys
 from datetime import datetime
 from urllib.parse import unquote
 import socket
 import netifaces
 import base64
+
+# Use legacy-cgi instead of deprecated cgi
+try:
+    from legacy_cgi import FieldStorage
+except ImportError:
+    # Fallback for older Python versions
+    import cgi
+    FieldStorage = cgi.FieldStorage
 
 class SecureFileHandler(SimpleHTTPRequestHandler):
     """Enhanced file server with security features and upload support"""
@@ -117,7 +124,8 @@ class SecureFileHandler(SimpleHTTPRequestHandler):
                 self.log_request(413)
                 return
             
-            form = cgi.FieldStorage(
+            # Use legacy-cgi FieldStorage
+            form = FieldStorage(
                 fp=self.rfile,
                 headers=self.headers,
                 environ={'REQUEST_METHOD': 'POST', 'CONTENT_TYPE': self.headers.get('Content-Type', '')}
