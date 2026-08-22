@@ -1,6 +1,6 @@
 [project]
 name = "python-server"
-version = "1.0.0"
+version = "1.0.1"  # <--- CHANGE THIS
 description = "HTTP file server with upload support and authentication"
 readme = "README.md"
 requires-python = ">=3.8"
