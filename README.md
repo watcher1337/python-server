@@ -45,12 +45,6 @@ uv tool install python-server
 ```
 
 
-
-### Windows / Linux / macOS (Binary)
-
-Download from [releases](https://github.com/watcher1337/python-server/releases/latest):
-
-
 ---
 
 ## 📖 Usage
