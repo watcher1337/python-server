@@ -1,0 +1,44 @@
+[project]
+name = "python-server"
+version = "1.0.0"
+description = "HTTP file server with upload support and authentication"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    {name = "your-username", email = "your-email@example.com"}
+]
+license = {text = "MIT"}
+keywords = ["http-server", "file-upload", "file-server", "pentest"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "netifaces>=0.11.0",
+]
+
+[project.scripts]
+python-server = "python_server:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.py-modules]
+# This tells setuptools to include python-server.py as a module
+auto = true
+
+# Optional: For PyInstaller if you want binaries
+[tool.pyinstaller]
+hidden_imports = ["netifaces"]
