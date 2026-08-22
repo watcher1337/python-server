@@ -13,7 +13,7 @@ on:
 
 permissions:
   contents: write
-  id-token: write  # Required for PyPI OIDC
+  id-token: write
 
 jobs:
   build:
@@ -24,41 +24,26 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # =========================
-          # Windows (x64)
-          # =========================
           - os: windows-latest
             arch: x64
             filename: python-server-windows-x64.exe
             binary: dist/python-server.exe
 
-          # =========================
-          # Linux (x64)
-          # =========================
           - os: ubuntu-latest
             arch: x64
             filename: python-server-linux-x64
             binary: dist/python-server
 
-          # =========================
-          # Linux ARM64 - NATIVE ARM RUNNER!
-          # =========================
           - os: ubuntu-24.04-arm
             arch: arm64
             filename: python-server-linux-arm64
             binary: dist/python-server
 
-          # =========================
-          # macOS (Intel)
-          # =========================
           - os: macos-14
             arch: x64
             filename: python-server-macos-x64
             binary: dist/python-server
 
-          # =========================
-          # macOS ARM64 - NATIVE ARM RUNNER!
-          # =========================
           - os: macos-15
             arch: arm64
             filename: python-server-macos-arm64
@@ -80,23 +65,21 @@ jobs:
           echo "OS: $(uname -s 2>/dev/null || echo Windows)"
           echo "Architecture: $(uname -m 2>/dev/null || echo Windows)"
           python --version
-          python -c "import platform; print('Python architecture:', platform.machine())"
 
       - name: Install dependencies
         shell: bash
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pyinstaller netifaces
+          python -m pip install pyinstaller netifaces legacy-cgi
 
-      - name: Build executable
+      - name: Build executable with hidden imports
         shell: bash
         run: |
-          # Check if file is python-server.py or python_server.py
-          if [ -f "python-server.py" ]; then
-            python -m PyInstaller --onefile --clean --name python-server python-server.py
-          else
-            python -m PyInstaller --onefile --clean --name python-server python_server.py
-          fi
+          python -m PyInstaller --onefile --clean \
+            --hidden-import=legacy_cgi \
+            --hidden-import=netifaces \
+            --name python-server \
+            python_server.py
 
       - name: Rename artifact
         shell: bash
@@ -133,11 +116,6 @@ jobs:
         run: |
           echo "Release files:"
           ls -lah artifacts/
-          echo ""
-          echo "File details:"
-          if command -v file &> /dev/null; then
-            file artifacts/* 2>/dev/null || echo "file command not available"
-          fi
 
       - name: Set release tag
         id: release_tag
@@ -159,9 +137,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # ============================================================
-  # PyPI Publishing Job
-  # ============================================================
   pypi-publish:
     name: Publish to PyPI
     needs: build
