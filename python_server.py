@@ -2,6 +2,7 @@
 # /// script
 # requires-python = ">=3.12"
 # dependencies = [
+#     "legacy-cgi>=2.6.4",
 #     "netifaces>=0.11.0",
 # ]
 # ///
