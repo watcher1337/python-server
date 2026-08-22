@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="python-server",
-    version="1.0.0",
+    version="1.0.1",  # <--- CHANGE THIS
     py_modules=["python_server"],
     install_requires=[
         "legacy-cgi>=2.6.4",
