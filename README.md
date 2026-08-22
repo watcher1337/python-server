@@ -12,7 +12,7 @@
 
 ## 🚀 Quick Install
 
-### Linux / macOS / Windows (pipx / uv )
+### Linux / macOS  (pipx / uv )
 
 ```bash
 pipx install python-server
@@ -20,8 +20,21 @@ pipx install python-server
 ```bash
 uv tool install python-server
 ```
+```bash
+python-server -h
+```
 
+### Windows (pipx)
 
+```bash
+python -m pipx install python-server
+```
+```bash
+python -m pipx ensurepath
+```
+```bash
+python-server
+```
 ---
 
 ## 📖 Usage
