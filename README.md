@@ -58,13 +58,15 @@ python-server -h                 # Show help
 
 ```bash
 # Upload with PUT
-curl -X PUT -T "file.exe" http://10.10.10.8/file.exe
+curl.exe -X PUT -T "file.exe" http://10.10.10.8/file.exe
 
 # Upload with POST
-curl -F "file=@file.exe" http://10.10.10.8/
+curl.exe -F "file=@file.exe" http://10.10.10.8/
 
 # Upload with authentication
-curl -u admin:secret -X PUT -T "file.exe" http://10.10.10.8/file.exe
+curl.exe -u admin:secret -X PUT -T "file.exe" http://10.10.10.8/file.exe
+
+curl.exe -X PUT -T "file.exe" http://admin:secret@10.10.10.8/file.exe
 ```
 
 **Windows Upload Commands:**
