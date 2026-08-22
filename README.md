@@ -44,20 +44,12 @@ pipx install python-server
 uv tool install python-server
 ```
 
-### pip
 
-```bash
-pip install python-server
-```
 
 ### Windows / Linux / macOS (Binary)
 
 Download from [releases](https://github.com/watcher1337/python-server/releases/latest):
-- `python-server-windows-x64.exe`
-- `python-server-linux-x64`
-- `python-server-linux-arm64`
-- `python-server-macos-x64`
-- `python-server-macos-arm64`
+
 
 ---
 
