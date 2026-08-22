@@ -20,9 +20,6 @@ pipx install python-server
 ```bash
 uv tool install python-server
 ```
-```bash
-python-server -h
-```
 
 ### Windows (pipx)
 
@@ -31,9 +28,6 @@ python -m pipx install python-server
 ```
 ```bash
 python -m pipx ensurepath
-```
-```bash
-python-server
 ```
 ---
 
